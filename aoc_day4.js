@@ -5,6 +5,8 @@ const data = fs.readFileSync('aoc_day4_data.txt', 'utf8').split("\n");
 // PART A
 // 1) Order the Data - CHECK!!!
 
+console.log("!!! PART A !!!")
+
 function getRawDateFromDataLine(dataLine) {
 	return dataLine.slice(1,17);
 }
@@ -125,3 +127,47 @@ const partAProduct = maxSleeperGuardNum * maxSleepyTime;
 console.log(partAProduct);
 
 // PART B
+// Get sleepTimeArrays for All Gaurds
+// find the max out of all those arrays
+// multiply that gaurd and that minute
+
+console.log("!!! PART B !!!")
+
+let guardsAndTheirSleepyTimes = {};
+let currGuardNum = 0;
+
+for (let i = 0; i < timeSortedArray.length; i++) {
+
+	const infoLineB = timeSortedArray[i].info;
+
+	if (infoLineB.includes("shift")) {
+		currGuardNum = getGuardNumber(infoLineB);
+		if (!guardsAndTheirSleepyTimes[currGuardNum]) {
+			guardsAndTheirSleepyTimes[currGuardNum] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+		}
+	}
+	if (infoLineB.includes("falls")) {
+		const asleepIndex = parseInt(timeSortedArray[i].rawDate.slice(-2));
+		const awakensIndex = parseInt(timeSortedArray[i+1].rawDate.slice(-2));
+		for (let j = asleepIndex; j < awakensIndex; j++) {
+			guardsAndTheirSleepyTimes[currGuardNum][j] += 1;
+		}
+	}
+}
+
+let superMaxSleepyGuardNum;
+let superMaxSleepyGuardMin;
+let currMaxMinSlept = 0;
+
+for (const [key, value] of Object.entries(guardsAndTheirSleepyTimes)) {
+  let maxTimesMinSlept = Math.max(...value);
+  if (maxTimesMinSlept > currMaxMinSlept) {
+  	currMaxMinSlept = maxTimesMinSlept;
+  	superMaxSleepyGuardNum = parseInt(key);
+  	superMaxSleepyGuardMin = value.indexOf(currMaxMinSlept);
+  }
+}
+
+console.log("GuardNum:", superMaxSleepyGuardNum, "maxSleepyTime:", superMaxSleepyGuardMin);
+const partBProduct = superMaxSleepyGuardNum * superMaxSleepyGuardMin;
+console.log(partBProduct);
