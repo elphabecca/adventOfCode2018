@@ -4,8 +4,6 @@ const data = fs.readFileSync('aoc_day4_data.txt', 'utf8').split("\n");
 
 // PART A
 // 1) Order the Data - CHECK!!!
-// 2) Find the gaurd who slept the most total mins.
-// 3) Find what minute that gaurd slept the most.
 
 function getRawDateFromDataLine(dataLine) {
 	return dataLine.slice(1,17);
@@ -49,5 +47,12 @@ function getTimeSortedArray(data) {
 const timeSortedArray = getTimeSortedArray(data);
 
 console.log(timeSortedArray);
+
+// 2) Find the gaurd who slept the most total mins.
+// Make an obj where the key is the guard number and value is minutes slept
+// Maybe use MS again and divide to get num of mins?
+
+// 3) Find what minute that gaurd slept the most.
+// Oh boy I don't know how to tackle this yet
 
 // PART B
