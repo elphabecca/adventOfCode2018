@@ -60,13 +60,13 @@ function createGridMap(maxXY) {
 			for (let e = 0; e < cleanDataArray.length; e++) {
 				const coordFromDataString = JSON.stringify(cleanDataArray[e]);
 				// console.log(coordFromDataString, typeof coordFromDataString); --> {"x":1,"y":1} string
-				const distance = c + cleanDataArray[e].x + d + cleanDataArray[e].y;
+				const distance = Math.abs(c - cleanDataArray[e].x) + Math.abs(d - cleanDataArray[e].y);
 				// console.log(distance); --> 33
 				// console.log(coordMap[coordString]); --> []
 				const distanceMap = {[coordFromDataString]: distance};
 				// console.log(distanceMap); --> { '{"x":8,"y":3}': 28 }
 				coordMap[coordString].push(distanceMap);
-				console.log(coordMap);
+				// console.log(coordMap);
 					// { '{"x":9,"y":9}':
 					//    [ { '{"x":1,"y":1}': 20 },
 					//      { '{"x":1,"y":6}': 25 },
@@ -84,9 +84,7 @@ function createGridMap(maxXY) {
 
 const grid = createGridMap(maxXY);
 
-// console.log(grid);
-
-// '{"x":0,"y":0}': [{"{ x: 8, y: 3 }": distance}, ...]
+// console.log(JSON.stringify(grid));
 
 // PART B
 
